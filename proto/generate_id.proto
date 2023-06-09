@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option go_package = ".;proto";
+
+
+//请求编码
+message GetIdRequest {
+  string stub = 1;         //客户端编码
+  int64 count = 2;         //生成的数量
+
+}
+
+//号段区间
+message GetIdResponse {
+  int64 start = 1;
+  int64 end = 2;
+}
+
+
+//生成的接口代码作为客户端与服务端的约定，服务端必须实现定义的所有接口方法，客户端直接调用同名方法向服务端发起请求
+service GenerateId{
+  rpc getIds(GetIdRequest) returns(GetIdResponse){}
+}
