@@ -1,0 +1,4 @@
+name: 'distributed-id-service'
+consul:
+  host: '127.0.0.1'
+  port: 8500

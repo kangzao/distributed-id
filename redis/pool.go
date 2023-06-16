@@ -1,7 +1,6 @@
 package redis
 
 import (
-	"distributed-id/config"
 	"github.com/gomodule/redigo/redis"
 	"os"
 	"os/signal"
@@ -14,11 +13,8 @@ var (
 )
 
 func init() {
-	config.InitConfig("../config.ini")
-	redisHost := config.RedisConfig.Host
-	if redisHost == "" {
-		redisHost = "127.0.0.1:6379"
-	}
+
+	redisHost := "127.0.0.1:6379"
 	Pool = newPool(redisHost)
 	//cleanupHook()
 }

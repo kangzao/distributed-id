@@ -34,7 +34,12 @@ func Get(key string) ([]byte, error) {
 func Set(key string, value []byte) error {
 
 	conn := Pool.Get()
-	defer conn.Close()
+	defer func(conn redis.Conn) {
+		err := conn.Close()
+		if err != nil {
+
+		}
+	}(conn)
 
 	_, err := conn.Do("SET", key, value)
 	if err != nil {
@@ -50,7 +55,12 @@ func Set(key string, value []byte) error {
 func SetNX(key string, value []byte) (interface{}, error) {
 
 	conn := Pool.Get()
-	defer conn.Close()
+	defer func(conn redis.Conn) {
+		err := conn.Close()
+		if err != nil {
+
+		}
+	}(conn)
 
 	res, err := conn.Do("SETNX", key, value)
 	if err != nil {
@@ -108,11 +118,11 @@ func GetKeys(pattern string) ([]string, error) {
 	return keys, nil
 }
 
-func Incr(counterKey string) (int, error) {
+func IncrBy(counterKey string, count int) (int64, error) {
 	conn := Pool.Get()
 	defer conn.Close()
 
-	return redis.Int(conn.Do("INCR", counterKey))
+	return redis.Int64(conn.Do("INCRBY", counterKey, count))
 }
 
 func BytesToInt64(buf []byte) int64 {

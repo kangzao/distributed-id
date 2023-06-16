@@ -1,28 +1,13 @@
 package config
 
-import "github.com/go-ini/ini"
-
-var (
-	RedisConfig RedisConfigInfo
-)
-
-// RedisConfigInfo redis配置
-type RedisConfigInfo struct {
-	Host     string
-	User     string
-	Password string
-	Database int
-	PoolSize int
+// ConsulConfig 默认情况下，mapstructure使用结构体中字段的名称做这个映射，例如我们的结构体有一个Name字段，
+// mapstructure解码时会在map[string]interface{}中查找键名name。注意，这里的name是大小写不敏感的！
+type ConsulConfig struct {
+	Host string `mapstructure:"host" json:"host"`
+	Port int    `mapstructure:"port" json:"port"`
 }
 
-// 初始化配置
-func InitConfig(file string) (*ini.File, error) {
-	cfg, err := ini.Load(file)
-	if err != nil {
-		return nil, nil
-	}
-
-	section := cfg.Section("redis")
-	RedisConfig.Host = section.Key("REDIS_HOST").String()
-	return cfg, err
+type ServerConfig struct {
+	Name       string       `mapstructure:"name" json:"name"` //通过name 进行服务发现
+	ConsulInfo ConsulConfig `mapstructure:"consul" json:"consul"`
 }
