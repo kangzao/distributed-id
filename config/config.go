@@ -10,4 +10,15 @@ type ConsulConfig struct {
 type ServerConfig struct {
 	Name       string       `mapstructure:"name" json:"name"` //通过name 进行服务发现
 	ConsulInfo ConsulConfig `mapstructure:"consul" json:"consul"`
+	Count      int64        `mapstructure:"count" json:"count"`
+}
+
+type NacosConfig struct {
+	Host      string `mapstructure:"host"`
+	Port      uint64 `mapstructure:"port"`
+	Namespace string `mapstructure:"namespace"`
+	User      string `mapstructure:"user"`
+	Password  string `mapstructure:"password"`
+	DataId    string `mapstructure:"dataid"`
+	Group     string `mapstructure:"group"`
 }

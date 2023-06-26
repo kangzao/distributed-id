@@ -64,7 +64,7 @@ func main() {
 	//生成对应的检查对象
 	check := &api.AgentServiceCheck{
 		//满足GRPC健康检查规范后，这里不需要指定服务了，直接写明地址和端口即可
-		GRPC:                           fmt.Sprintf("10.108.133.174:%d", *Port),
+		GRPC:                           fmt.Sprintf("10.108.130.82:%d", *Port),
 		Timeout:                        "5s",
 		Interval:                       "5s",
 		DeregisterCriticalServiceAfter: "15s",
@@ -75,9 +75,9 @@ func main() {
 	registration.Name = global.ServerConfig.Name
 	serviceID := fmt.Sprintf("%s", uuid.New())
 	registration.ID = serviceID
-	registration.Port = *Port
+	registration.Port = 8500
 	registration.Tags = []string{"distributed-id", "foundation"}
-	registration.Address = "10.108.133.174"
+	registration.Address = "10.108.130.82"
 	registration.Check = check
 
 	err = client.Agent().ServiceRegister(registration)

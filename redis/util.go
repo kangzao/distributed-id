@@ -118,7 +118,7 @@ func GetKeys(pattern string) ([]string, error) {
 	return keys, nil
 }
 
-func IncrBy(counterKey string, count int) (int64, error) {
+func IncrBy(counterKey string, count int64) (int64, error) {
 	conn := Pool.Get()
 	defer conn.Close()
 
